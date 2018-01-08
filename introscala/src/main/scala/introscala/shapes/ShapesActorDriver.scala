@@ -2,7 +2,7 @@ package introscala.shapes
 import akka.actor.{Props, Actor, ActorRef, ActorSystem}
 import com.typesafe.config.ConfigFactory
 
-private object Start
+private object Start 
 
 object ShapesDrawingDriver {
     def main(args: Array[String]): Unit = {
@@ -24,9 +24,15 @@ class ShapesDrawingDriver (drawerActor: ActorRef) extends Actor {
       drawerActor ! 3.14159
       drawerActor ! Triangle(Point(0.0,0.0), Point(2.0,0.0), Point(1.0,2.0))
       drawerActor ! Exit
-      
+
+    case response: Response =>
+      println("ShapesDrawingDriver: Response = " + response)      
+
     case Finished =>
       println(s"ShapesDrawingDriver: cleaning up...")
-      context.system.shutdown()    
+      context.stop(self)
+
+    case unexpected =>
+      println("ShapesDrawingDriver: ERROR: Received an unexpected message = "+ unexpected)      
   }
 }

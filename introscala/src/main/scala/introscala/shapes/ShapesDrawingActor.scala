@@ -23,6 +23,5 @@ class ShapesDrawingActor extends Actor {
     case unexpected =>
       val response = Response(s"ERROR: Unknown message: $unexpected")
       println(s"ShapesDrawingActor: $response")
-      println(s"ShapesDrawingActor: $response")
   }
 }
