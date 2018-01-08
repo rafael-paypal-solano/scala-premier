@@ -1,13 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>scala.learning</groupId>
-  <artifactId>introscala</artifactId>
-  <version>1.0.0</version>
-    <!-
-    TODO: Use this pom as template
-    https://github.com/jesperdj/scala-maven-example/blob/master/pom.xml
-    http://www.scalatest.org/getting_started_with_junit_4_in_scala
-    -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>introscala</groupId>
+    <artifactId>shapes</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0.0</version>
+    <name>Building introscala.shapes.1.0.0</name>
+
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+    
     <repositories>
         <repository>
             <id>scala-tools.org</id>
@@ -15,6 +21,8 @@
             <url>http://scala-tools.org/repo-releases</url>
         </repository>
     </repositories>
+    
+    
     <pluginRepositories>
         <pluginRepository>
             <id>scala-tools.org</id>
@@ -22,78 +30,90 @@
             <url>http://scala-tools.org/repo-releases</url>
         </pluginRepository>
     </pluginRepositories>
-    <dependencies>
     
-		<!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
+    <dependencies>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>2.11.6</version>
+        </dependency>
+        
+		<!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-actor -->
 		<dependency>
-		    <groupId>org.scala-lang</groupId>
-		    <artifactId>scala-library</artifactId>
-		    <version>2.12.4</version>
+		    <groupId>com.typesafe.akka</groupId>
+		    <artifactId>akka-actor_2.12</artifactId>
+		    <version>2.5.8</version>
+		</dependency>
+	
+		<!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-slf4j -->
+		<dependency>
+		    <groupId>com.typesafe.akka</groupId>
+		    <artifactId>akka-slf4j_2.12</artifactId>
+		    <version>2.5.8</version>
+		</dependency>
+	
+		<!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-stream -->
+		<dependency>
+		    <groupId>com.typesafe.akka</groupId>
+		    <artifactId>akka-stream_2.12</artifactId>
+		    <version>2.5.8</version>
 		</dependency>
 
-		
+		<!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-remote -->
 		<dependency>
-		    <groupId>junit</groupId>
-		    <artifactId>junit</artifactId>
-		    <version>4.12</version>
-		    <scope>test</scope>
+		    <groupId>com.typesafe.akka</groupId>
+		    <artifactId>akka-remote_2.12</artifactId>
+		    <version>2.5.8</version>
 		</dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-actor -->
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor_2.12</artifactId>
-            <version>2.5.0</version>
-
-            <exclusions>
-                <exclusion>  <!-- declare the exclusion here -->
-                    <groupId>sample.ProjectB</groupId>
-                    <artifactId>Project-B</artifactId>
-                </exclusion>
-            </exclusions>             
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-stream -->
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-stream_2.12</artifactId>
-            <version>2.5.0</version>
-        </dependency>
 
     </dependencies>
-    <build>
+         
+  <build>
+   		
         <plugins>
-        
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-compiler-plugin</artifactId>
-	        <version>3.7.0</version>
-	        <configuration>
-	          <source>1.8</source>
-	          <target>1.8</target>
-	        </configuration>
+	     <plugin>
+	       <groupId>org.apache.maven.plugins</groupId>
+	       <artifactId>maven-compiler-plugin</artifactId>
+	       <version>3.7.0</version>
+	       <configuration>
+	         <source>1.8</source>
+	         <target>1.8</target>
+	       </configuration>
+	     </plugin>
+               
+	       <plugin>
+	        <groupId>net.alchim31.maven</groupId>
+	        <artifactId>scala-maven-plugin</artifactId>
+	        <version>3.3.1</version>
+	        
+		    <configuration>
+		      <launchers>
+		        <launcher>
+		          <id>default</id>
+		          <mainClass>introscala.shapes.ShapesDrawingDriver</mainClass>
+		          <!-- args are optional
+		          <args>
+		            <arg>arg1</arg>
+		          </args>
+		           -->
+		           
+		        </launcher>
+		        <!-- you could define other launcher -->
+		      </launchers>
+		    </configuration>
+    	        	        
+			<executions>
+				<execution>
+					<id>scala-compile-first</id>
+					<phase>process-resources</phase>
+					<goals>
+						<goal>add-source</goal>
+						<goal>compile</goal>
+					</goals>
+				</execution>
+			</executions>
 	      </plugin>
-	              
-          <plugin>
-              <groupId>org.scala-tools</groupId>
-              <artifactId>maven-scala-plugin</artifactId>
-              <version>2.15.2</version>              
-              <executions>
-                  <execution>
-                      <goals>
-                          <goal>compile</goal>
-                          <goal>testCompile</goal>
-                      </goals>
-                  </execution>
-              </executions>
-              <configuration>
-                  <sourceDir>src/main/scala</sourceDir>                  
-                  <jvmArgs>
-                      <jvmArg>-Xms64m</jvmArg>
-                      <jvmArg>-Xmx1024m</jvmArg>
-                  </jvmArgs>
-              </configuration>
-          </plugin>            
-        </plugins>
-    </build>  
+	    </plugins>
+
+    </build>         
 </project>
