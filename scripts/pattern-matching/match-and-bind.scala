@@ -10,6 +10,5 @@ for(person <- Seq(alice, bob, charlie)) {
         case p @ Person("Alice", 25, address) => println(s"Hi Alice $p")
         case p @ Person("Bob", 29, a @ Address(street, city, country)) => println(s"Hi ${p.name}! age ${p.age}, in ${a.city}")
         case p @ Person(name, age, _) => println(s"Who are you, $age year-old person named $name? $p")
-
     }
 }
