@@ -1,3 +1,4 @@
 Continue on page 208/178 "Trampoline for Tail Calls"
 Continue on page 217/247 "for Comprehension Depth"
 Continue on page 251/281 "Object oriented programming in scala"
+Continue on page 262/292 "Object oriented programming in scala"
